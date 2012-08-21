@@ -1,5 +1,3 @@
-require 'mancala'
-
 step 'I am not playing a game yet' do
 end
 
