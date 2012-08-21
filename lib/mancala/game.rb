@@ -2,7 +2,7 @@ module Mancala
   class Game
     def self.start(output = STDOUT)
       @output = output
-      @output.puts <<-EOF
+      @output.puts <<-'EOF'
         +---------+---------+---------+---------+---------+---------+---------+---------+
         |/       \|/       \|/       \|/       \|/       \|/       \|/       \|/       \|
         |         |    o    |    o    |    o    |    o    |    o    |    o    |         |
