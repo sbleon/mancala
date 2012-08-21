@@ -1,5 +1,6 @@
 module Mancala
   class Board
+
     def display(output)
       output.puts <<-'EOF'
                                         <-- Player 1
@@ -20,6 +21,10 @@ module Mancala
         +---------+----1----+----2----+----3----+----4----+----5----+----6----+---------+
                                             Player 2 -->
       EOF
+    end
+
+    def slots
+      [4,4,4,4,4,4,4,4,4,4,4,4,4,4]
     end
   end
 end
