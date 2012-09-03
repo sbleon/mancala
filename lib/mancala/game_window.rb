@@ -1,4 +1,5 @@
 require 'gosu'
+require 'pry'
 
 module Mancala
 
@@ -6,51 +7,37 @@ module Mancala
     Background, Stone = *0..1
   end
 
-  module BoardGeometry
-    STONE_RADIUS = 10
+  class GameWindow < ::Gosu::Window
 
-    def x_center(pot_number)
-      raise RuntimeError, 'pot_number must be between 0 and 13' unless (0..13).include?(pot_number)
+    include ::Mancala::BoardGeometry
+    include ::Gosu
 
-      case pot_number
-        when (0..6)
-          145 + pot_number * 99
-        when (7..12)
-          145 + (12 - pot_number) * 99
-        else
-          45
-      end
-    end
-
-    def y_center(pot_number)
-      raise RuntimeError, 'pot_number must be between 0 and 13' unless (0..13).include?(pot_number)
-
-      case pot_number
-        when (0..5)
-          240
-        when (7..12)
-          340
-        when 6
-          290
-        when 13
-          290
-      end
-    end
-  end
-
-  class Renderer < ::Gosu::Window
-
-    include BoardGeometry
-
-    def initialize(game)
-      @game = game
+    def initialize
+      @game = Game.new
       @height = 600
       @width = 800
-      super(@width, @height, false, 0)
+      super(@width, @height, false)
       self.caption = "Mancala"
 
       @background_image = ::Gosu::Image.new(self, 'images/board_gray.png')
       @stone_image = ::Gosu::Image.new(self, 'images/stone_black.png')
+    end
+
+    def button_down(id)
+      if id == Gosu::KbEscape
+        close
+      elsif id == Gosu::MsLeft
+        @game.move(selected_slot) unless selected_slot.nil?
+      end
+    end
+
+    def selected_slot
+      @game.slots.each_with_index do |stone_count, slot_num|
+        if distance(mouse_x, mouse_y, x_center(slot_num), y_center(slot_num)) < 45
+          return slot_num
+        end
+      end
+      return nil
     end
 
     def draw
@@ -62,7 +49,8 @@ module Mancala
       end
     end
 
-    def update
+    def needs_cursor?
+      true
     end
 
     def place_stone(pot, stone_num)
@@ -85,6 +73,9 @@ module Mancala
         when (36..39); BoardGeometry::STONE_RADIUS * -9
       end
       @stone_image.draw(stone_x, stone_y, ZOrder::Stone)
+    end
+
+    def update
     end
 
   end

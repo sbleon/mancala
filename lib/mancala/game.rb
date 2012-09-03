@@ -3,8 +3,10 @@ module Mancala
 
     def initialize
       @board = Board.new
-      @renderer = Renderer.new(self)
-      @renderer.show
+    end
+
+    def move(slot)
+      @board.move(slot)
     end
 
     def slots

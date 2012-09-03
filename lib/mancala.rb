@@ -1,3 +1,6 @@
-require 'mancala/game'
 require 'mancala/board'
-require 'mancala/renderer'
+require 'mancala/board_geometry'
+require 'mancala/game'
+
+require 'mancala/game_window'
+
