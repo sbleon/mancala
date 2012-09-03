@@ -1,9 +1,15 @@
 module Mancala
   class Game
-    def self.start(output = STDOUT)
-      @output = output
+
+    def initialize
       @board = Board.new
-      @board.display(@output)
+      @renderer = Renderer.new(self)
+      @renderer.show
     end
+
+    def slots
+      @board.slots
+    end
+
   end
 end
