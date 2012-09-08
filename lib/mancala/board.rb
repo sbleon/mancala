@@ -2,7 +2,7 @@ module Mancala
   class Board
 
     def initialize
-      @slots = [4,4,4,4,4,4,4,4,4,4,4,4,4,4]
+      @slots = [4,4,4,4,4,4,0,4,4,4,4,4,4,0]
     end
 
     def move(slot)
