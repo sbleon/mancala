@@ -18,6 +18,11 @@ module Mancala
     it "should have no stones in each player's pot" do
       pending
     end
+
+    it "should move stones the right places" do
+      subject.move 4
+      subject.slots[0..5].should == [5, 5, 5, 5, 0, 4]
+    end
   end
 
 end
